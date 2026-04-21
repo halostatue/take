@@ -1,0 +1,25 @@
+name = "take"
+version = "1.0.0"
+description = "IO capture for Gleam tests — stdout, stderr, or both"
+licences = ["Apache-2.0"]
+gleam = ">= 1.14.0"
+
+[repository]
+type = "github"
+user = "halostatue"
+repo = "take"
+path = "take"
+tag_prefix = "take-"
+
+[dependencies]
+gleam_stdlib = ">= 0.44.0 and < 2.0.0"
+
+[dev-dependencies]
+gleeunit = ">= 1.0.0 and < 2.0.0"
+glinter = ">= 2.15.0 and < 3.0.0"
+
+[javascript.deno]
+allow_read = ["gleam.toml", "test"]
+
+[tools.glinter]
+stats = true
