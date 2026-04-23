@@ -8,7 +8,7 @@ test:
     set -euo pipefail
     for pkg in {{ packages }}; do
       echo "=== Testing ${pkg} ==="
-      just "${pkg}"/test
+      just packages/"${pkg}"/test
     done
 
 build:
@@ -16,7 +16,7 @@ build:
     set -euo pipefail
     for pkg in {{ packages }}; do
       echo "=== Building ${pkg} ==="
-      just "${pkg}"/build
+      just packages/"${pkg}"/build
     done
 
 lint:
@@ -24,19 +24,19 @@ lint:
     set -euo pipefail
     for pkg in {{ packages }}; do
       echo "=== Linting ${pkg} ==="
-      just "${pkg}"/lint
+      just packages/"${pkg}"/lint
     done
 
 docs:
     #!/usr/bin/env bash
     for pkg in {{ packages }}; do
-      just "${pkg}"/docs
+      just packages/"${pkg}"/docs
     done
 
 docs-open:
     #!/usr/bin/env bash
     for pkg in {{ packages }}; do
-      just "${pkg}"/docs-open
+      just packages/"${pkg}"/docs-open
     done
 
 format-check:
@@ -44,7 +44,7 @@ format-check:
     set -euo pipefail
     for pkg in {{ packages }}; do
       echo "=== Format check ${pkg} ==="
-      (cd "${pkg}" && gleam format --check src test)
+      (cd packages/"${pkg}" && gleam format --check src test)
     done
 
 format:
@@ -52,7 +52,7 @@ format:
     set -euo pipefail
     for pkg in {{ packages }}; do
       echo "=== Format ${pkg} ==="
-      (cd "${pkg}" && gleam format)
+      (cd packages/"${pkg}" && gleam format)
     done
 
 deps *args="download":
@@ -60,5 +60,5 @@ deps *args="download":
     set -euo pipefail
     for pkg in {{ packages }}; do
       echo "=== Downloading deps for ${pkg} ==="
-      (cd "${pkg}" && gleam deps {{ args }})
+      (cd packages/"${pkg}" && gleam deps {{ args }})
     done
