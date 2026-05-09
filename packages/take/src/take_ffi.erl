@@ -41,28 +41,25 @@ collector(Owner, Acc) ->
     receive
         {io_request, From, ReplyAs, {put_chars, _Enc, Chars}} ->
             From ! {io_reply, ReplyAs, ok},
-            collector(Owner, [Acc | to_list(Chars)]);
+            collector(Owner, [Acc, Chars]);
         {io_request, From, ReplyAs, {put_chars, Chars}} ->
             From ! {io_reply, ReplyAs, ok},
-            collector(Owner, [Acc | to_list(Chars)]);
+            collector(Owner, [Acc, Chars]);
         {done, Owner} ->
-            Owner ! {result, unicode:characters_to_binary(lists:flatten(Acc))}
+            Owner ! {result, unicode:characters_to_binary(Acc)}
     end.
 
 stderr_collector(OldPid, Owner, Acc) ->
     receive
         {io_request, From, ReplyAs, {put_chars, _Enc, Chars}} ->
             From ! {io_reply, ReplyAs, ok},
-            stderr_collector(OldPid, Owner, [Acc | to_list(Chars)]);
+            stderr_collector(OldPid, Owner, [Acc, Chars]);
         {io_request, From, ReplyAs, {put_chars, Chars}} ->
             From ! {io_reply, ReplyAs, ok},
-            stderr_collector(OldPid, Owner, [Acc | to_list(Chars)]);
+            stderr_collector(OldPid, Owner, [Acc, Chars]);
         {io_request, From, ReplyAs, Req} ->
             OldPid ! {io_request, From, ReplyAs, Req},
             stderr_collector(OldPid, Owner, Acc);
         {done, Owner} ->
-            Owner ! {result, unicode:characters_to_binary(lists:flatten(Acc))}
+            Owner ! {result, unicode:characters_to_binary(Acc)}
     end.
-
-to_list(B) when is_binary(B) -> binary_to_list(B);
-to_list(L) when is_list(L) -> L.

@@ -97,6 +97,18 @@ pub fn capture_stdio_returns_both_test() {
   assert "err\n" == stderr
 }
 
+// --- unicode ---
+
+pub fn with_stdout_captures_unicode_test() {
+  let #(_, output) = take.with_stdout(fn() { io.print("\u{25b6}") })
+  assert "\u{25b6}" == output
+}
+
+pub fn with_stderr_captures_unicode_test() {
+  let #(_, output) = take.with_stderr(fn() { io.print_error("\u{25b6}") })
+  assert "\u{25b6}" == output
+}
+
 // --- nesting ---
 
 pub fn nested_stdout_in_stderr_test() {

@@ -1,5 +1,5 @@
 name = "take"
-version = "1.0.0"
+version = "1.0.1"
 description = "IO capture for Gleam tests — stdout, stderr, or both"
 licences = ["Apache-2.0"]
 gleam = ">= 1.14.0"
@@ -11,6 +11,27 @@ repo = "take"
 path = "take"
 tag_prefix = "take-"
 
+[[documentation.pages]]
+title = "Changelog"
+path = "changelog.html"
+source = "CHANGELOG.md"
+
+[[links]]
+title = "Licence"
+href = "https://github.com/halostatue/take/blob/main/LICENCE.md"
+[[links]]
+title = "Security"
+href = "https://github.com/halostatue/take/blob/main/SECURITY.md"
+[[links]]
+title = "Code of Conduct"
+href = "https://github.com/halostatue/take/blob/main/CODE_OF_CONDUCT.md"
+[[links]]
+title = "Contributing"
+href = "https://github.com/halostatue/take/blob/main/CONTRIBUTING.md"
+[[links]]
+title = "Sponsor"
+href = "https://github.com/sponsors/halostatue"
+
 [dependencies]
 gleam_stdlib = ">= 0.44.0 and < 2.0.0"
 
@@ -18,8 +39,8 @@ gleam_stdlib = ">= 0.44.0 and < 2.0.0"
 gleeunit = ">= 1.0.0 and < 2.0.0"
 glinter = ">= 2.15.0 and < 3.0.0"
 
-[javascript.deno]
-allow_read = ["gleam.toml", "test"]
-
 [tools.glinter]
 stats = true
+
+[javascript.deno]
+allow_read = ["gleam.toml", "test"]
